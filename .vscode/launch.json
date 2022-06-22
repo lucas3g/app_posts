@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "[dev] app_posts",
+            "request": "launch",
+            "type": "dart",
+            "toolArgs": [
+                "--dart-define",
+                "BASE_URL=https://my-json-server.typicode.com/danilovitolo/fakeApi4Sys"
+            ]
+        },
+        {
+            "name": "[prod] app_posts",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--release"
+            ],
+            "toolArgs": [
+                "--dart-define",
+                "BASE_URL=https://my-json-server.typicode.com/danilovitolo/fakeApi4Sys"
+            ]            
+        },
+    ]
+}
