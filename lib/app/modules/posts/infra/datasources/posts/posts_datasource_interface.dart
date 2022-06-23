@@ -1,3 +1,3 @@
-abstract class IPostsAPIDataSource {
+abstract class IPostsDataSource {
   Future<List<dynamic>> getPostsAPI();
 }

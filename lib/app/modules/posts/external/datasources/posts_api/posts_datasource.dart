@@ -1,8 +1,8 @@
 import 'package:app_posts/app/core_module/services/client_http/client_http_interface.dart';
 import 'package:app_posts/app/modules/posts/domain/exception/posts_exception.dart';
-import 'package:app_posts/app/modules/posts/infra/datasources/posts/posts_api_datasource_interface.dart';
+import 'package:app_posts/app/modules/posts/infra/datasources/posts/posts_datasource_interface.dart';
 
-class PostsAPIDataSource implements IPostsAPIDataSource {
+class PostsAPIDataSource implements IPostsDataSource {
   final IClientHttp _clientHttpInterface;
 
   PostsAPIDataSource({

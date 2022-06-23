@@ -45,6 +45,12 @@ class _PostsPageState extends State<PostsPage> {
         padding: const EdgeInsets.all(10),
         child: Observer(
           builder: (_) {
+            if (widget.postsController.state is DontHaveInternetState) {
+              return const Center(
+                child: Text('Parece que você esta sem internet.'),
+              );
+            }
+
             if (widget.postsController.state is! PostsGetAPISuccessState) {
               return ListView.separated(
                 itemBuilder: (_, index) {
@@ -60,6 +66,13 @@ class _PostsPageState extends State<PostsPage> {
               final list =
                   (widget.postsController.state as PostsGetAPISuccessState)
                       .listPostWithUsers;
+
+              if (list.isEmpty) {
+                return const Center(
+                  child: Text('Nenhum post encontrado'),
+                );
+              }
+
               return ListView.separated(
                 itemBuilder: (context, index) {
                   return CardPostsWidget(postsWithUserEntity: list[index]);

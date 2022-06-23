@@ -22,3 +22,5 @@ class PostsGetAPIErrorState extends PostsStates {
 
   PostsGetAPIErrorState({required this.message, this.stackTrace});
 }
+
+class DontHaveInternetState extends PostsStates {}

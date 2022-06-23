@@ -1,21 +1,21 @@
 import 'package:app_posts/app/core_module/types/either.dart';
 import 'package:app_posts/app/modules/posts/domain/entities/post_entity.dart';
 import 'package:app_posts/app/modules/posts/domain/exception/posts_exception.dart';
-import 'package:app_posts/app/modules/posts/domain/repositories/post_repository_interface.dart';
+import 'package:app_posts/app/modules/posts/domain/repositories/posts_repository_interface.dart';
 
-abstract class IGetPostUseCase {
+abstract class IGetPostsUseCase {
   Future<Either<IPostsException, List<PostEntity>>> call();
 }
 
-class GetPostUseCase implements IGetPostUseCase {
-  final IPostRepository postRepository;
+class GetPostsUseCase implements IGetPostsUseCase {
+  final IPostsRepository postsRepository;
 
-  GetPostUseCase({
-    required this.postRepository,
+  GetPostsUseCase({
+    required this.postsRepository,
   });
 
   @override
   Future<Either<IPostsException, List<PostEntity>>> call() async {
-    return await postRepository.getPostsAPI();
+    return await postsRepository.getPostsAPI();
   }
 }

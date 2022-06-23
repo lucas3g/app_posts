@@ -1,4 +1,6 @@
-import 'package:app_posts/app/modules/posts/domain/usecases/get_post_usecase.dart';
+import 'dart:io';
+
+import 'package:app_posts/app/modules/posts/domain/usecases/get_posts_usecase.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:app_posts/app/modules/posts/presenter/states/posts_states.dart';
@@ -8,10 +10,10 @@ part 'posts_controller.g.dart';
 class PostsController = _PostsControllerBase with _$PostsController;
 
 abstract class _PostsControllerBase with Store {
-  final GetPostUseCase getPostUseCase;
+  final GetPostsUseCase getPostsUseCase;
 
   _PostsControllerBase({
-    required this.getPostUseCase,
+    required this.getPostsUseCase,
   });
 
   @observable
@@ -28,15 +30,31 @@ abstract class _PostsControllerBase with Store {
   @action
   Future<void> getPostsAPI() async {
     emit(PostsGetAPILoadingState());
-    final result = await getPostUseCase();
 
-    final value = result.fold<PostsStates>(
-      (l) => PostsGetAPIErrorState(message: l.message),
-      (r) {
-        r.shuffle();
-        return PostsGetAPISuccessState(listPostWithUsers: r);
+    await verifyInternet();
+
+    final result = await getPostsUseCase();
+
+    final resultState = result.fold<PostsStates>(
+      (error) => PostsGetAPIErrorState(message: error.message),
+      (success) {
+        success.shuffle();
+        return PostsGetAPISuccessState(listPostWithUsers: success);
       },
     );
-    emit(value);
+    emit(resultState);
+  }
+
+  Future<void> verifyInternet() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (!result.isNotEmpty && !result[0].rawAddress.isNotEmpty) {
+        emit(DontHaveInternetState());
+        return;
+      }
+    } on SocketException catch (_) {
+      emit(DontHaveInternetState());
+      return;
+    }
   }
 }

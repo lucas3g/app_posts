@@ -1,8 +1,8 @@
 import 'package:app_posts/app/core_module/services/client_http/client_http_interface.dart';
 import 'package:app_posts/app/modules/posts/domain/exception/user_exception.dart';
-import 'package:app_posts/app/modules/posts/infra/datasources/users/users_api_datasource_interface.dart';
+import 'package:app_posts/app/modules/posts/infra/datasources/users/users_datasource_interface.dart';
 
-class UsersAPIDataSource implements IUsersAPIDataSource {
+class UsersAPIDataSource implements IUsersDataSource {
   final IClientHttp _clientHttpInterface;
 
   UsersAPIDataSource({

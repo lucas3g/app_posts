@@ -11,7 +11,7 @@ abstract class IPostsException implements Exception {
 class PostsException extends IPostsException {
   const PostsException({
     required String message,
-    required StackTrace? stackTrace,
+    StackTrace? stackTrace,
   }) : super(
           message: message,
           stackTrace: stackTrace,
