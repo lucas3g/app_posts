@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:core';
 
 abstract class AppColors {
-  Color get backgroundPrimary;
-  Color get button;
-  Color get titleAppBar;
-  Color get titleMercadoria;
-  Color get titleEstoque;
-  Color get titlePontos;
-  Color get logadoComSucesso;
+  Color get appBar;
+  Color get title;
+  Color get body;
+
   MaterialColor get primary;
 
   final String hex = '0xff';
@@ -18,25 +15,13 @@ abstract class AppColors {
 
 class AppColorDefault implements AppColors {
   @override
-  Color get button => Colors.white;
+  Color get appBar => Colors.black;
 
   @override
-  Color get backgroundPrimary => const Color(0xFFFFFFFF);
+  Color get title => Colors.black;
 
   @override
-  Color get titleAppBar => Colors.white;
-
-  @override
-  Color get titleMercadoria => Colors.black;
-
-  @override
-  Color get titleEstoque => Colors.black;
-
-  @override
-  Color get titlePontos => const Color(0xffcf1f36);
-
-  @override
-  Color get logadoComSucesso => const Color(0xff009342);
+  Color get body => Colors.black;
 
   Map<int, Color> color = {
     50: const Color.fromRGBO(136, 14, 79, .1),
@@ -57,7 +42,7 @@ class AppColorDefault implements AppColors {
   //009342 - PAPAGAIO - cf1f36 BIO //004357 Cor legal
   //246EE9 Royal Blue //FF2400 Scarlet Red //3EB489 Mint Green
   @override
-  String get colorFinal => 'cf1f36';
+  String get colorFinal => 'ffffff';
 
   @override
   int get hexFinal => int.parse('$hex$colorFinal');

@@ -1,5 +1,5 @@
-import 'package:app_posts/app/theme/app_theme.dart';
-import 'package:app_posts/app/utils/navigation_service.dart';
+import 'theme/app_theme.dart';
+import 'utils/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:asuka/asuka.dart' as asuka;

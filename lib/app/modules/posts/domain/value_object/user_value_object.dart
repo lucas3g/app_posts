@@ -1,9 +1,9 @@
-class UserEntity {
+class UserValueObject {
   final int id;
   final String avatarUrl;
   final String name;
 
-  UserEntity({
+  UserValueObject({
     required this.id,
     required this.avatarUrl,
     required this.name,
