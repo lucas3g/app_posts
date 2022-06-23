@@ -3,7 +3,7 @@ import 'package:app_posts/app/modules/posts/domain/entities/post_entity.dart';
 import 'package:app_posts/app/modules/posts/domain/value_object/user_value_object.dart';
 import 'package:app_posts/app/modules/posts/infra/datasources/posts/posts_datasource_interface.dart';
 import 'package:app_posts/app/modules/posts/infra/datasources/users/users_datasource_interface.dart';
-import 'package:app_posts/app/modules/posts/infra/repositories/post_repository.dart';
+import 'package:app_posts/app/modules/posts/infra/repositories/posts_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

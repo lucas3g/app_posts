@@ -1,4 +1,4 @@
-import 'package:app_posts/app/modules/posts/presenter/controllers/posts_controller.dart';
+import 'package:app_posts/app/modules/posts/presenter/mobx/posts_controller.dart';
 import 'package:app_posts/app/modules/posts/presenter/states/posts_states.dart';
 import 'package:app_posts/app/modules/posts/presenter/widgets/card_posts_widget.dart';
 import 'package:app_posts/app/theme/app_theme.dart';

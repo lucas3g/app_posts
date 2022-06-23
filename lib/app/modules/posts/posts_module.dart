@@ -1,8 +1,11 @@
+import 'package:app_posts/app/modules/posts/domain/repositories/posts_repository_interface.dart';
 import 'package:app_posts/app/modules/posts/domain/usecases/get_posts_usecase.dart';
 import 'package:app_posts/app/modules/posts/external/datasources/posts_api/posts_datasource.dart';
-import 'package:app_posts/app/modules/posts/external/datasources/users/users_api_datasource.dart';
-import 'package:app_posts/app/modules/posts/infra/repositories/post_repository.dart';
-import 'package:app_posts/app/modules/posts/presenter/controllers/posts_controller.dart';
+import 'package:app_posts/app/modules/posts/external/datasources/users_api/users_api_datasource.dart';
+import 'package:app_posts/app/modules/posts/infra/datasources/posts/posts_datasource_interface.dart';
+import 'package:app_posts/app/modules/posts/infra/datasources/users/users_datasource_interface.dart';
+import 'package:app_posts/app/modules/posts/infra/repositories/posts_repository.dart';
+import 'package:app_posts/app/modules/posts/presenter/mobx/posts_controller.dart';
 
 import 'presenter/posts_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -10,12 +13,28 @@ import 'package:flutter_modular/flutter_modular.dart';
 class PostsModule extends Module {
   @override
   final List<Bind<Object>> binds = [
-    Bind.factory((i) => PostsAPIDataSource(clientHttpInterface: i())),
-    Bind.factory((i) => UsersAPIDataSource(clientHttpInterface: i())),
-    Bind.factory(
-        (i) => PostsRepository(postsDataSource: i(), usersDataSource: i())),
-    Bind.factory((i) => GetPostsUseCase(postsRepository: i())),
-    Bind.singleton((i) => PostsController(getPostsUseCase: i())),
+    //DATASOURCES
+    Bind.factory<IPostsDataSource>(
+      (i) => PostsAPIDataSource(clientHttpInterface: i()),
+    ),
+    Bind.factory<IUsersDataSource>(
+      (i) => UsersAPIDataSource(clientHttpInterface: i()),
+    ),
+
+    //REPOSITORIES
+    Bind.factory<IPostsRepository>(
+      (i) => PostsRepository(postsDataSource: i(), usersDataSource: i()),
+    ),
+
+    //USECASES
+    Bind.factory<IGetPostsUseCase>(
+      (i) => GetPostsUseCase(postsRepository: i()),
+    ),
+
+    //MOBX
+    Bind.singleton(
+      (i) => PostsController(getPostsUseCase: i()),
+    ),
   ];
 
   @override
