@@ -1,4 +1,4 @@
-import 'package:app_posts/app/modules/posts/presenter/mobx/posts_controller.dart';
+import 'package:app_posts/app/modules/posts/presenter/mobx/posts_store.dart';
 import 'package:app_posts/app/modules/posts/presenter/states/posts_states.dart';
 import 'package:app_posts/app/modules/posts/presenter/widgets/card_posts_widget.dart';
 import 'package:app_posts/app/theme/app_theme.dart';
@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class PostsPage extends StatefulWidget {
-  final PostsController postsController;
+  final PostsStore postsStore;
 
-  const PostsPage({Key? key, required this.postsController}) : super(key: key);
+  const PostsPage({Key? key, required this.postsStore}) : super(key: key);
 
   @override
   State<PostsPage> createState() => _PostsPageState();
@@ -18,7 +18,7 @@ class PostsPage extends StatefulWidget {
 
 class _PostsPageState extends State<PostsPage> {
   Future<void> getPosts() async {
-    await widget.postsController.getPostsAPI();
+    await widget.postsStore.getPostsAPI();
   }
 
   @override
@@ -45,13 +45,13 @@ class _PostsPageState extends State<PostsPage> {
         padding: const EdgeInsets.all(10),
         child: Observer(
           builder: (_) {
-            if (widget.postsController.state is DontHaveInternetState) {
+            if (widget.postsStore.state is DontHaveInternetState) {
               return const Center(
                 child: Text('Parece que você esta sem internet.'),
               );
             }
 
-            if (widget.postsController.state is! PostsGetAPISuccessState) {
+            if (widget.postsStore.state is! PostsGetAPISuccessState) {
               return ListView.separated(
                 itemBuilder: (_, index) {
                   return LoadingWidget(
@@ -62,10 +62,9 @@ class _PostsPageState extends State<PostsPage> {
               );
             }
 
-            if (widget.postsController.state is PostsGetAPISuccessState) {
-              final list =
-                  (widget.postsController.state as PostsGetAPISuccessState)
-                      .listPostWithUsers;
+            if (widget.postsStore.state is PostsGetAPISuccessState) {
+              final list = (widget.postsStore.state as PostsGetAPISuccessState)
+                  .listPostWithUsers;
 
               if (list.isEmpty) {
                 return const Center(

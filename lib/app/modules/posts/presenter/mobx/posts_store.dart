@@ -5,14 +5,14 @@ import 'package:mobx/mobx.dart';
 
 import 'package:app_posts/app/modules/posts/presenter/states/posts_states.dart';
 
-part 'posts_controller.g.dart';
+part 'posts_store.g.dart';
 
-class PostsController = _PostsControllerBase with _$PostsController;
+class PostsStore = _PostsStoreBase with _$PostsStore;
 
-abstract class _PostsControllerBase with Store {
+abstract class _PostsStoreBase with Store {
   final GetPostsUseCase getPostsUseCase;
 
-  _PostsControllerBase({
+  _PostsStoreBase({
     required this.getPostsUseCase,
   });
 

@@ -5,7 +5,7 @@ import 'package:app_posts/app/modules/posts/external/datasources/users_api/users
 import 'package:app_posts/app/modules/posts/infra/datasources/posts/posts_datasource_interface.dart';
 import 'package:app_posts/app/modules/posts/infra/datasources/users/users_datasource_interface.dart';
 import 'package:app_posts/app/modules/posts/infra/repositories/posts_repository.dart';
-import 'package:app_posts/app/modules/posts/presenter/mobx/posts_controller.dart';
+import 'package:app_posts/app/modules/posts/presenter/mobx/posts_store.dart';
 
 import 'presenter/posts_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -32,8 +32,8 @@ class PostsModule extends Module {
     ),
 
     //MOBX
-    Bind.singleton(
-      (i) => PostsController(getPostsUseCase: i()),
+    Bind.singleton<PostsStore>(
+      (i) => PostsStore(getPostsUseCase: i()),
     ),
   ];
 
@@ -42,7 +42,7 @@ class PostsModule extends Module {
     ChildRoute(
       '/',
       child: ((context, args) => PostsPage(
-            postsController: Modular.get<PostsController>(),
+            postsStore: Modular.get<PostsStore>(),
           )),
     ),
   ];
