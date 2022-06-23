@@ -1,4 +1,4 @@
-import 'package:app_posts/app/modules/posts/domain/entities/posts_with_user_entity.dart';
+import 'package:app_posts/app/modules/posts/domain/entities/post_entity.dart';
 
 abstract class PostsStates {}
 
@@ -9,7 +9,7 @@ class PostsGetAPIInitialState extends PostsGetAPISuccessState {
 class PostsGetAPILoadingState extends PostsStates {}
 
 class PostsGetAPISuccessState extends PostsStates {
-  final List<PostsWithUserEntity> listPostWithUsers;
+  final List<PostEntity> listPostWithUsers;
 
   PostsGetAPISuccessState({
     required this.listPostWithUsers,

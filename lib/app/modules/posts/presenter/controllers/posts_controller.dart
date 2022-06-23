@@ -1,6 +1,4 @@
-import 'package:app_posts/app/modules/posts/domain/exception/posts_with_user_exception.dart';
-import 'package:app_posts/app/modules/posts/domain/usecases/get_post_with_user_usecase.dart';
-import 'package:app_posts/app/modules/posts/domain/entities/posts_with_user_entity.dart';
+import 'package:app_posts/app/modules/posts/domain/usecases/get_post_usecase.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:app_posts/app/modules/posts/presenter/states/posts_states.dart';
@@ -10,40 +8,35 @@ part 'posts_controller.g.dart';
 class PostsController = _PostsControllerBase with _$PostsController;
 
 abstract class _PostsControllerBase with Store {
-  final GetPostsWithUserUseCase getPostsWithUserUseCase;
+  final GetPostUseCase getPostUseCase;
 
   _PostsControllerBase({
-    required this.getPostsWithUserUseCase,
+    required this.getPostUseCase,
   });
 
   @observable
-  ObservableList<PostsWithUserEntity> listPostWithUsers = ObservableList.of([]);
+  PostsStates _state = PostsGetAPIInitialState();
 
-  @observable
-  PostsStates state = PostsGetAPIInitialState();
+  @computed
+  PostsStates get state => _state;
 
   @action
   PostsStates emit(PostsStates state) {
-    return this.state = state;
+    return _state = state;
   }
 
   @action
   Future<void> getPostsAPI() async {
-    try {
-      emit(PostsGetAPILoadingState());
-      final result = await getPostsWithUserUseCase();
+    emit(PostsGetAPILoadingState());
+    final result = await getPostUseCase();
 
-      result.fold(
-        (l) => PostsWithUserException(
-          message: 'Erro ao gerar posts com os usuarios',
-          stackTrace: StackTrace.current,
-        ),
-        (r) => emit(
-          PostsGetAPISuccessState(listPostWithUsers: r),
-        ),
-      );
-    } catch (e) {
-      emit(PostsGetAPIErrorState(message: e.toString()));
-    }
+    final value = result.fold<PostsStates>(
+      (l) => PostsGetAPIErrorState(message: l.message),
+      (r) {
+        r.shuffle();
+        return PostsGetAPISuccessState(listPostWithUsers: r);
+      },
+    );
+    emit(value);
   }
 }

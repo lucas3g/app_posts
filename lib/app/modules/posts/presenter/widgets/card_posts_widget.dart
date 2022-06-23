@@ -1,10 +1,10 @@
-import 'package:app_posts/app/modules/posts/domain/entities/posts_with_user_entity.dart';
+import 'package:app_posts/app/modules/posts/domain/entities/post_entity.dart';
 import 'package:app_posts/app/theme/app_theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CardPostsWidget extends StatefulWidget {
-  final PostsWithUserEntity postsWithUserEntity;
+  final PostEntity postsWithUserEntity;
   const CardPostsWidget({Key? key, required this.postsWithUserEntity})
       : super(key: key);
 
@@ -22,7 +22,7 @@ class _CardPostsWidgetState extends State<CardPostsWidget> {
           CircleAvatar(
             radius: 25,
             child: CachedNetworkImage(
-              imageUrl: widget.postsWithUserEntity.userValueObject.avatarUrl,
+              imageUrl: widget.postsWithUserEntity.user.avatarUrl,
               placeholder: (_, __) {
                 return const Center(
                   child: SizedBox(
@@ -44,8 +44,7 @@ class _CardPostsWidgetState extends State<CardPostsWidget> {
           const SizedBox(
             width: 15,
           ),
-          Flexible(
-              child: Text(widget.postsWithUserEntity.userValueObject.name)),
+          Flexible(child: Text(widget.postsWithUserEntity.user.name)),
         ],
       ),
       subtitle: Column(
@@ -56,12 +55,12 @@ class _CardPostsWidgetState extends State<CardPostsWidget> {
             height: 5,
           ),
           Text(
-            widget.postsWithUserEntity.postsValueObject.title,
+            widget.postsWithUserEntity.title,
             style: AppTheme.textStyles.title,
           ),
           const SizedBox(height: 10),
           Text(
-            widget.postsWithUserEntity.postsValueObject.body,
+            widget.postsWithUserEntity.body,
             style: AppTheme.textStyles.body,
           ),
         ],
